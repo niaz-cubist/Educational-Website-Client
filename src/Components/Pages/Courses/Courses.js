@@ -7,7 +7,7 @@ const Courses = () => {
 
 
     return (
-        <div className='mt-20 mx-4 grid grid-cols-3 gap-4 grid-rows-2'>
+        <div className='mt-20 mx-4  sm:grid sm:grid-cols-1 xs:grid xs:grid-cols-1 grid grid-cols-3 gap-4 grid-rows-2'>
             {
                 store.map((param) => <CoursesDisplay key={param._id} course={param}></CoursesDisplay>)
             }

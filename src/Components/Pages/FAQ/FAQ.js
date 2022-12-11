@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const FAQ = () => {
+
+    useEffect(() => {
+        document.title = 'Login';
+    }, [])
+
     return (
         <div className='w-9/12 container mt-20'>
             <h2>What is online learning like?</h2>

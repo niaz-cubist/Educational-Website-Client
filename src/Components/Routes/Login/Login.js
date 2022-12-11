@@ -1,17 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Context.js';
-
+import { Link } from 'react-router-dom'
 
 const Login = () => {
+
+    useEffect(() => {
+        document.title = 'Login';
+    }, [])
+
     const [error, setError] = useState('');
-    const { signIn, setLoading } = useContext(AuthContext);
+    const { signIn, setLoading, google } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
+
+    const handleGoogle = () => {
+        google()
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -42,25 +53,31 @@ const Login = () => {
     }
 
     return (
-        <Form className='brdr mt-24 mx-auto w-9/12' onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control name="email" type="email" placeholder="Enter email" required />
+        <div className='w-9/12 mx-auto'>
+            <h2 className='text-center mx-12'>Login</h2>
+            <Form className='mb-24 mx-auto w-5/12' onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control name="email" type="email" placeholder="Enter email" required />
 
-            </Form.Group>
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control name="password" type="password" placeholder="Password" required />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name="password" type="password" placeholder="Password" required />
+                </Form.Group>
 
-            <Button variant="primary" type="submit">
-                Login
-            </Button>
-            <Form.Text className="text-danger">
-                {error}
-            </Form.Text>
-        </Form>
+                <Button variant="primary" type="submit">
+                    Login
+                </Button>
+                <Form.Text className="text-danger">
+                    {error}
+                </Form.Text>
+                <p className='text-center'>New to Edu Learn?? <Link className='text-orange-600 font-bold' to="/register">Sign Up</Link> </p>
+                <br />
+                <button className='w-9/12 mx-auto btn btn-outline btn-success' onClick={handleGoogle}>Sign in with Google</button>
+            </Form>
+        </div>
     );
 };
 

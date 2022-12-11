@@ -1,71 +1,65 @@
 import React, { useContext } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Logo from '../../Images/Logo.png';
 import { AuthContext } from '../../Context/Context.js';
-import Button from 'react-bootstrap/Button';
-import { Image } from 'react-bootstrap';
-import Panda from '../../Images/Screenshot_1.png'
-import './Header.css'
-
 
 const Header = () => {
-
     const { user, logOut } = useContext(AuthContext);
-
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
-            .catch(error => console.error(error))
+            .then()
+            .catch();
     }
+
+    const menuItems = <>
+
+        {
+            user?.email ?
+                <>
+                    <li className='font-semibold'>
+                        <button onClick={handleLogOut} className='btn-ghost'>Sign Out</button>
+                    </li>
+                </>
+                :
+                <>
+                    <li className='font-bold'><Link style={{ textDecoration: 'none' }} to='/login'>Login</Link></li>
+
+                    <li className='font-bold'><Link style={{ textDecoration: 'none' }} to='/register'>Sign Up</Link></li>
+                </>
+        }
+
+    </>
+
     return (
-        <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Container>
-                    <Link className='nav-web' to="/home">Edu Learn</Link>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
+        <div className="navbar container mx-auto h-24 mb-20 pt-8 bg-base-100">
+            <div className="navbar-start">
+                <div className="dropdown xxl:hidden xl:hidden lg:hidden">
+                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></li>
+                        <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/courses'>Courses</Link></li>
+                        <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/faq'>FAQ</Link></li>
+                        <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/checkout'>Premium</Link></li>
+                        {menuItems}
+                    </ul>
+                </div>
+                <Link to="/" className="btn btn-ghost normal-case text-xl">
+                    <img className='h-10' src={Logo} alt="" />
+                </Link>
+            </div>
+            <div className="navbar-center xs:hidden md:hidden sm:hidden lg:flex">
+                <ul className="py-2 menu menu-horizontal p-0">
+                    <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></li>
+                    <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/courses'>Courses</Link></li>
+                    <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/faq'>FAQ</Link></li>
+                    <li className='font-semibold'><Link style={{ textDecoration: 'none' }} to='/checkout'>Premium</Link></li>
+                    {menuItems}
+                </ul>
 
-                        <Nav className="me-auto mx-auto">
-                            <Link className='header mx-2' to="/home">Home</Link>
-                            <Link className='header mx-2' to="/courses">Courses</Link>
-                            <Link className='header mx-2' to="/faq">FAQ</Link>
-                            <Link className='header mx-2' to="/blog">Blog</Link>
-                            <Link className='header mx-2' to="/checkout">Get Premium Access</Link>
-                        </Nav>
-
-                        <Nav>
-                            <>
-                                {
-                                    user?.uid ?
-                                        <>
-                                            <span>{user?.displayName}</span>
-                                            <Button variant="light" onClick={handleLogOut}>Log out</Button>
-                                        </>
-                                        :
-                                        <>
-                                            <Link className='nav-link px-2' to="/login">Login</Link>
-                                            <Link className='nav-link px-2' to="/register">Register</Link>
-                                        </>
-                                }
-                            </>
-                            <>
-                                {user?.uid ?
-                                    <Image
-                                        className='mt-1 px-2 disabled'
-                                        style={{ height: '35px' }}
-                                        roundedCircle
-                                        src={Panda}>
-                                    </Image>
-                                    : <></>
-                                }
-                            </>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            </div>
 
         </div>
     );

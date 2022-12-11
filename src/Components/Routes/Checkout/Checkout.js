@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,12 +6,14 @@ import Modal from 'react-bootstrap/Modal';
 const Checkout = () => {
 
     const [show, setShow] = useState(false);
-
+    useEffect(() => {
+        document.title = 'Premium';
+    }, [])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
-        <div className='container mt-20 d-flex gap-4 w-75 '>
+        <div className='container my-20 d-flex gap-5 w-75 '>
             <div className="card w-65 bg-base-400 shadow-xl">
                 <figure><img src="https://images.squarespace-cdn.com/content/v1/5c2864609f8770b74f18cbb8/1565118033789-1JYNE10IZU8U0ELLF2WL/Basic+Package.png?format=1000w" alt="Basic" /></figure>
                 <div className="card-body">

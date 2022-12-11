@@ -11,7 +11,7 @@ const Videos = () => {
 
 
     return (
-        <div className='grid grid-cols-3 mt-24 gap-4 p-2 container'>
+        <div className='grid xs:grid xs:grid-cols-2 grid-cols-3 mt-24 gap-4 p-2 container'>
             {
                 videos.map(param => <VideoCart key={_id} param={param}></VideoCart>)
             }
